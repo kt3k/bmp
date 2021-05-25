@@ -1,4 +1,4 @@
-# bmp v0.0.3
+# bmp v0.0.5
 
 > Update version without hassle
 
@@ -13,7 +13,7 @@ If the version number of the library written more than 1 place, updating these n
 # Install
 
 ```sh
-deno install --allow-read=. --allow-write=. https://deno.land/x/bmp@0.0.3/cli.ts
+deno install --allow-read=. --allow-write=. https://deno.land/x/bmp@0.0.5/cli.ts
 ```
 
 This installs `bmp` command.
@@ -23,7 +23,7 @@ This installs `bmp` command.
 Hit the command in a repository you want to mange version numbers with `bmp`.
 
 ```
-bmp init
+bmp --init
 ```
 
 This creates config file like the below:
