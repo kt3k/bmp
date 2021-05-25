@@ -8,7 +8,8 @@ function usage() {
 Usage: bmp [options]
 
 Options:
-  -i, --info         Shows the version information.
+  -i, --init         Initializes the config file.
+  --info             Shows the version information.
   -c, --commit       Commits changes with commit message (requires git command)
   -p, --patch        Bumps patch (0.0.1) level
   -m, --minor        Bumps minor (0.1.0) level
@@ -22,6 +23,7 @@ Options:
 
 type CliArgs = {
   info: boolean;
+  init: boolean;
   commit: boolean;
   patch: boolean;
   minor: boolean;
@@ -34,6 +36,7 @@ type CliArgs = {
 
 export async function main(args: string[]) {
   const {
+    init,
     info,
     commit,
     patch,
@@ -54,6 +57,7 @@ export async function main(args: string[]) {
       "preid",
       "release",
       "info",
+      "init",
     ],
     string: ["preid"],
     alias: {
@@ -63,7 +67,7 @@ export async function main(args: string[]) {
       j: "major",
       m: "minor",
       p: "patch",
-      i: "info",
+      i: "init",
     },
   });
 
