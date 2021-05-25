@@ -111,3 +111,29 @@ Version patterns:
   main.ts: ${green('"%.%.%"')}
 `.trim());
 });
+
+Deno.test("VersionInfo.getTag()", async () => {
+  const info = VersionInfo.create({
+    version: "1.2.3",
+    commit: "chore: bump to %.%.%",
+    files: {
+      "README.md": ["v%.%.%", "@%.%.%"],
+      "main.ts": [`"%.%.%"`],
+    }
+  });
+
+  assertEquals(info.getTag(), "v1.2.3")
+});
+
+Deno.test("VersionInfo.getCommitMessage()", async () => {
+  const info = VersionInfo.create({
+    version: "1.2.3",
+    commit: "chore: hey %.%.%",
+    files: {
+      "README.md": ["v%.%.%", "@%.%.%"],
+      "main.ts": [`"%.%.%"`],
+    }
+  });
+
+  assertEquals(info.getCommitMessage(), "chore: hey 1.2.3")
+});

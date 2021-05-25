@@ -30,7 +30,7 @@ export async function readConfig(
     throw new AppError(e.message);
   }
 
-  const info = VersionInfo.create(data);
+  const info = VersionInfo.create(data, filename);
   await info.validate();
   return info;
 }

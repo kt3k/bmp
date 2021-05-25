@@ -1,5 +1,4 @@
 import {
-  parse,
   stringify,
 } from "https://deno.land/std@0.97.0/encoding/yaml.ts";
 import { green } from "https://deno.land/std@0.97.0/fmt/colors.ts";
@@ -12,20 +11,27 @@ class FilePattern {
     public patterns: string[],
   ) {}
 
-  async validate() {
+  async validate(v: string) {
+    let text: string
     try {
-      const file = await Deno.open(this.path);
-      file.close();
+      text = await Deno.readTextFile(this.path);
     } catch (e) {
       if (e.name === "NotFound") {
         throw new AppError(`Error: The file ${this.path} not found`);
       }
+      throw e;
     }
     for (const pattern of this.patterns) {
       if (!pattern.includes("%.%.%")) {
         throw new AppError(
           `Error: The pattern '${pattern}' doesn't include '%.%.%'`,
         );
+      }
+      const findPattern = pattern.replaceAll("%.%.%", v);
+      if (!text.includes(findPattern)) {
+	throw new AppError(
+          `Error: The file '${this.path}' doesn't include the pattern '${findPattern}'`,
+	)
       }
     }
   }
@@ -125,7 +131,7 @@ export type VersionInfoInput = {
 };
 
 export class VersionInfo {
-  static create({ version, commit, files }: VersionInfoInput) {
+  static create({ version, commit, files }: VersionInfoInput, path: string = ".bmp.yml") {
     if (!version) {
       throw new AppError(
         "Error: version property is not given in the config file",
@@ -159,11 +165,12 @@ export class VersionInfo {
       }
       filePatterns.push(new FilePattern(path, patterns));
     }
-    return new VersionInfo(v, commit, filePatterns);
+    return new VersionInfo(path, v, commit, filePatterns);
   }
 
   updateVersion: Version;
   constructor(
+    public path: string,
     public currentVersion: Version,
     public commit: string | undefined,
     public filePatterns: FilePattern[],
@@ -172,8 +179,9 @@ export class VersionInfo {
   }
 
   async validate() {
+    const v = this.currentVersion.toString();
     for (const filePattern of this.filePatterns) {
-      await filePattern.validate();
+      await filePattern.validate(v);
     }
   }
 
@@ -223,7 +231,6 @@ export class VersionInfo {
       buf.push(`Commit message: ${green(this.commit)}`);
     }
     buf.push(`Version patterns:`);
-    console.log(this.filePatterns);
     for (const { path, patterns } of this.filePatterns) {
       for (const pattern of patterns) {
 	buf.push(`  ${path}: ${green(pattern)}`);
@@ -236,12 +243,24 @@ export class VersionInfo {
     return this.currentVersion.toString() !== this.updateVersion.toString();
   }
 
-  async replaceVersionsInFiles() {
+  async performUpdate() {
     for (const filePattern of this.filePatterns) {
       await filePattern.replace(
         this.currentVersion.toString(),
         this.updateVersion.toString(),
       );
     }
+    await Deno.writeTextFile(this.path, stringify(this.toObject()));
+  }
+
+  getTag() {
+    return `v${this.updateVersion.toString()}`;
+  }
+
+  getCommitMessage() {
+    if (this.commit) {
+      return this.commit.replaceAll("%.%.%", this.updateVersion.toString());
+    }
+    return `chore: bump to ${this.updateVersion.toString()}`;
   }
 }
