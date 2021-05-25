@@ -1,4 +1,4 @@
-# bmp v0.0.3
+# bmp v0.0.4
 
 > Version up. No hassles.
 
@@ -13,7 +13,7 @@ If the version number of the library written more than 1 place, updating these n
 # Install
 
 ```sh
-deno install --allow-read=. --allow-write=. --allow-run=git -qf https://deno.land/x/bmp@0.0.3/cli.ts
+deno install --allow-read=. --allow-write=. --allow-run=git -qf https://deno.land/x/bmp@0.0.4/cli.ts
 ```
 
 This installs `bmp` command.
