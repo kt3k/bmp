@@ -12,6 +12,6 @@ export async function performCommit(info: VersionInfo) {
   await p1.status();
   const t = info.getTag();
   console.log(green(`git tag ${t}`));
-  const p2 = Deno.run({ cmd: ["git", "tag", "-m", t], });
+  const p2 = Deno.run({ cmd: ["git", "tag", t], });
   await p2.status();
 }
