@@ -13,22 +13,22 @@ If the version number of the library written more than 1 place, updating these n
 # Install
 
 ```sh
-deno install --allow-read=. --allow-write=. https://deno.land/x/bmp@0.0.3/cli.ts
+deno install --allow-read=. --allow-write=. --allow-run=git -qf https://deno.land/x/bmp@0.0.3/cli.ts
 ```
 
 This installs `bmp` command.
 
 # Usage
 
-Hit the command in a repository you want to mange version numbers with `bmp`.
+Hit the command in a repository you want to mangae version numbers with `bmp`.
 
+```sh
+bmp -i # or bump --init
 ```
-bmp --init
-```
 
-This creates config file like the below:
+This creates a config file like the below:
 
-.bmp.yml
+`.bmp.yml`
 
 ```yaml
 version: 0.0.0
@@ -38,10 +38,11 @@ files:
 ```
 
 - `version` is the current version of your repository. You need to update this to the actuall current version number.
-- `commit` is the commit message which is used when you perform the command `bmp -c`, which commits with appropriate commit message, and cut the tag.
-- `files` contains the version number patterns in files. If your README.md file contains `my-library v1.2.3`, then you need to set this property to `README.md: my-library v%.%.%`. (As you can see `%.%.%` part represents the version number)
+- `commit` is the commit message which is used when you perform the command `bmp -c`, which commits with appropriate commit message, and cut the tag. This field is optional, and you can delete this if you don't want to use committing feature.
+- `files` contains the version number patterns in files. For example, if your README.md file contains `my-library v1.2.3`, then you need to set this property to `README.md: my-library v%.%.%`. (As you can see `%.%.%` part represents the version number)
+  `bmp` doesn't parse your files. So you can list any files with any syntax.
 
-Then you need to modify this file to fit the reality of your repository. It might be something like the below:
+Then you need to modify this file to fit the reality of your repository. It might be something like the below, for example:
 
 ```yaml
 version: 0.4.3
@@ -53,7 +54,7 @@ files:
   main.ts: 'const version = "%.%.%";'
 ```
 
-Then hit the command `bmp`. This validates the occurencies of the pattern in each file. If the config has error, you'll see error. If the config finds every pattern in every file, you'll see the output like the below:
+Then hit the command `bmp` (no options). This validates the occurencies of the patterns in each file. If the config has any error, you'll see the error. If the config finds every pattern in every file, you'll see the output like the below:
 
 ```
 Current version: 0.4.3
@@ -64,7 +65,33 @@ Version patterns:
   main.ts: const version = "0.4.3";
 ```
 
-Now you are all set. You can bump versoin by the command `bmp -j` (major), `bmp -m` (minor), `bmp -p` (patch). The tool also supports `preid` (like alpha.1 or beta.2). See `bmp -h` output for more details.
+Now you are all set. You can bump the versoin by the commands `bmp -j` (major), `bmp -m` (minor), `bmp -p` (patch). The tool also supports `preid` (like `alpha.1` or `beta.2`). See `bmp -h` output for more details.
+
+# Example commands
+
+## `bmp -i`
+
+Creates .bmp.yml file with placeholders.
+
+## `bmp`
+
+Checks and validates the config file.
+
+## `bmp -p`
+
+Bump the patch version and updates every version occurrences based on .bmp.yml config.
+
+`bmp -m` for minor version bump, `bmp -j` for major version bump.
+
+## `bmp -c`
+
+Commits the current change in the git repository with the commit message specified in .bmp.yml config and cut the tag.
+
+## `bmp -pc`
+
+Patch version up, commits the change, and cut the tag.
+
+Also `bmp -mc` for minor, `bmp -jc` for major.
 
 # LICENSE
 
