@@ -23,7 +23,7 @@ This installs `bmp` command.
 Hit the command in a repository you want to mange version numbers with `bmp`.
 
 ```
-bmp init
+bmp --init
 ```
 
 This creates config file like the below:
