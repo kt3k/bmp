@@ -228,12 +228,12 @@ export class VersionInfo {
     const buf: string[] = [];
     buf.push(`Current version: ${green(this.currentVersion.toString())}`);
     if (this.commit) {
-      buf.push(`Commit message: ${green(this.commit)}`);
+      buf.push(`Commit message: ${green(this.getCommitMessage())}`);
     }
     buf.push(`Version patterns:`);
     for (const { path, patterns } of this.filePatterns) {
       for (const pattern of patterns) {
-	buf.push(`  ${path}: ${green(pattern)}`);
+	buf.push(`  ${path}: ${green(pattern.replaceAll("%.%.%", this.updateVersion.toString()))}`);
       }
     }
     return buf.join("\n");
@@ -250,6 +250,10 @@ export class VersionInfo {
         this.updateVersion.toString(),
       );
     }
+    await this.save();
+  }
+
+  async save() {
     await Deno.writeTextFile(this.path, stringify(this.toObject()));
   }
 

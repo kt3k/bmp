@@ -104,11 +104,11 @@ Deno.test("VersionInfo.toString()", async () => {
   });
   assertEquals(info.toString().trim(), `
 Current version: ${green("1.2.3")}
-Commit message: ${green("chore: bump to %.%.%")}
+Commit message: ${green("chore: bump to 1.2.3")}
 Version patterns:
-  README.md: ${green("v%.%.%")}
-  README.md: ${green("@%.%.%")}
-  main.ts: ${green('"%.%.%"')}
+  README.md: ${green("v1.2.3")}
+  README.md: ${green("@1.2.3")}
+  main.ts: ${green('"1.2.3"')}
 `.trim());
 });
 
