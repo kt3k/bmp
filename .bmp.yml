@@ -1,5 +1,6 @@
-version: 0.0.1
+---
+version: 0.0.2
 commit: 'chore: bump to %.%.%'
 files:
   README.md:
-    - bmp v%.%.%
+  - bmp v%.%.%

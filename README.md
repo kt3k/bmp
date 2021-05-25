@@ -1,4 +1,4 @@
-# bmp v0.0.1
+# bmp v0.0.2
 
 > Bump version, no hassle
 
