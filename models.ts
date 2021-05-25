@@ -131,6 +131,15 @@ export type VersionInfoInput = {
 };
 
 export class VersionInfo {
+  static createDefault() {
+    return VersionInfo.create({
+      version: "0.0.0",
+      commit: "chore: bump to v%.%.%",
+      files: {
+	"README.md": "v%.%.%",
+      }
+    });
+  }
   static create({ version, commit, files }: VersionInfoInput, path: string = ".bmp.yml") {
     if (!version) {
       throw new AppError(

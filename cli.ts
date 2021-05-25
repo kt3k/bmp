@@ -2,7 +2,7 @@ import { parse } from "https://deno.land/std@0.97.0/flags/mod.ts";
 import { red } from "https://deno.land/std@0.97.0/fmt/colors.ts";
 import { readConfig } from "./read_config.ts";
 import { performCommit } from "./perform_commit.ts";
-import { AppError } from "./models.ts";
+import { AppError, VersionInfo } from "./models.ts";
 
 const NAME = "bmp";
 const VERSION = "0.0.1";
@@ -85,7 +85,24 @@ export async function main(args: string[]) {
     return 0;
   }
 
-  let versionInfo
+  let versionInfo: VersionInfo;
+  if (init) {
+    try {
+      const f = await Deno.open('.bmp.yml');
+      console.log(red("Error: .bmp.yml file already exists"));
+      f.close();
+      return 1;
+    } catch (e) {
+      if (e.name === "NotFound") {
+	console.log("Creating .bmp.yml file");
+	await VersionInfo.createDefault().save();
+	console.log("Done");
+	return 0;
+      }
+      throw e;
+    }
+  }
+
   try {
     versionInfo = await readConfig();
   } catch (e) {
