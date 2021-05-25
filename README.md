@@ -1,6 +1,6 @@
 # bmp v0.0.3
 
-> Update version without hassle
+> Version up. No hassles.
 
 `bmp` is a command line tool for updating the version number in source files.
 
