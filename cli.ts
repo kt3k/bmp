@@ -126,6 +126,7 @@ export async function main(args: string[]) {
   }
 
   if (versionInfo.isUpdated()) {
+    console.log(versionInfo.bumpSummary());
     await versionInfo.performUpdate();
   }
 

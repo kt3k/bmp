@@ -25,28 +25,28 @@ Deno.test("Version - updates version number", () => {
   let v = Version.parse("1.2.3");
   v = v.bumpMajor();
   assertEquals(v.major, 2);
-  assertEquals(v.minor, 2);
-  assertEquals(v.patch, 3);
+  assertEquals(v.minor, 0);
+  assertEquals(v.patch, 0);
   assertEquals(v.preid, undefined);
   v = v.bumpMinor();
   assertEquals(v.major, 2);
-  assertEquals(v.minor, 3);
-  assertEquals(v.patch, 3);
+  assertEquals(v.minor, 1);
+  assertEquals(v.patch, 0);
   assertEquals(v.preid, undefined);
   v = v.bumpPatch();
   assertEquals(v.major, 2);
-  assertEquals(v.minor, 3);
-  assertEquals(v.patch, 4);
+  assertEquals(v.minor, 1);
+  assertEquals(v.patch, 1);
   assertEquals(v.preid, undefined);
   v = v.setPreid("alpha.1");
   assertEquals(v.major, 2);
-  assertEquals(v.minor, 3);
-  assertEquals(v.patch, 4);
+  assertEquals(v.minor, 1);
+  assertEquals(v.patch, 1);
   assertEquals(v.preid, "alpha.1");
   v = v.release();
   assertEquals(v.major, 2);
-  assertEquals(v.minor, 3);
-  assertEquals(v.patch, 4);
+  assertEquals(v.minor, 1);
+  assertEquals(v.patch, 1);
   assertEquals(v.preid, undefined);
 });
 
@@ -136,4 +136,27 @@ Deno.test("VersionInfo.getCommitMessage()", async () => {
   });
 
   assertEquals(info.getCommitMessage(), "chore: hey 1.2.3")
+});
+
+
+Deno.test("VersionInfo.bumpSummary()", async () => {
+  const info = VersionInfo.create({
+    version: "1.2.3",
+    commit: "chore: hey %.%.%",
+    files: {
+      "README.md": ["v%.%.%", "@%.%.%"],
+      "main.ts": [`"%.%.%"`],
+    }
+  });
+
+  info.minor();
+
+  assertEquals(info.bumpSummary(), `
+Updating version:
+  ${green("1.2.3 => 1.3.0")}
+Version patterns:
+  README.md: ${green("v1.2.3 => v1.3.0")}
+  README.md: ${green("@1.2.3 => @1.3.0")}
+  main.ts: ${green('"1.2.3" => "1.3.0"')}
+  `.trim());
 });

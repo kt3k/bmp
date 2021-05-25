@@ -41,7 +41,7 @@ class FilePattern {
     for (const pattern of this.patterns) {
       const beforeString = pattern.replaceAll("%.%.%", from);
       const afterString = pattern.replaceAll("%.%.%", to);
-      contents.replaceAll(beforeString, afterString);
+      contents = contents.replaceAll(beforeString, afterString);
     }
     await Deno.writeTextFile(this.path, contents);
   }
@@ -73,8 +73,8 @@ export class Version {
   bumpMajor(): Version {
     return new Version(
       this.major + 1,
-      this.minor,
-      this.patch,
+      0,
+      0,
       undefined,
     );
   }
@@ -83,7 +83,7 @@ export class Version {
     return new Version(
       this.major,
       this.minor + 1,
-      this.patch,
+      0,
       undefined,
     );
   }
@@ -243,6 +243,21 @@ export class VersionInfo {
     for (const { path, patterns } of this.filePatterns) {
       for (const pattern of patterns) {
 	buf.push(`  ${path}: ${green(pattern.replaceAll("%.%.%", this.updateVersion.toString()))}`);
+      }
+    }
+    return buf.join("\n");
+  }
+
+  bumpSummary() {
+    const buf: string[] = [];
+    const v0 = this.currentVersion.toString();
+    const v1 = this.updateVersion.toString();
+    buf.push("Updating version:");
+    buf.push("  " + green(`${v0} => ${v1}`));
+    buf.push("Version patterns:");
+    for (const { path, patterns } of this.filePatterns) {
+      for (const pattern of patterns) {
+	buf.push(`  ${path}: ${green(`${pattern.replaceAll("%.%.%", v0)} => ${pattern.replaceAll("%.%.%", v1)}`)}`);
       }
     }
     return buf.join("\n");
