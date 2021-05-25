@@ -1,7 +1,9 @@
 import {
+  assert,
   assertEquals,
   assertThrowsAsync,
 } from "https://deno.land/std@0.97.0/testing/asserts.ts";
+import { green } from "https://deno.land/std@0.97.0/fmt/colors.ts";
 
 import { AppError, Version, VersionInfo } from "./models.ts";
 
@@ -75,4 +77,37 @@ Deno.test("VersionInfo - toObject", async () => {
       "main.ts": '"%.%.%"'
     }
   });
+});
+
+Deno.test("VersionInfo.isUpdated()", async () => {
+  const info = VersionInfo.create({
+    version: "1.2.3",
+    commit: "chore: bump to %.%.%",
+    files: {
+      "README.md": ["v%.%.%", "@%.%.%"],
+      "main.ts": [`"%.%.%"`],
+    }
+  });
+  assert(!info.isUpdated());
+  info.major();
+  assert(info.isUpdated());
+});
+
+Deno.test("VersionInfo.toString()", async () => {
+  const info = VersionInfo.create({
+    version: "1.2.3",
+    commit: "chore: bump to %.%.%",
+    files: {
+      "README.md": ["v%.%.%", "@%.%.%"],
+      "main.ts": [`"%.%.%"`],
+    }
+  });
+  assertEquals(info.toString().trim(), `
+Current version: ${green("1.2.3")}
+Commit message: ${green("chore: bump to %.%.%")}
+Version patterns:
+  README.md: ${green("v%.%.%")}
+  README.md: ${green("@%.%.%")}
+  main.ts: ${green('"%.%.%"')}
+`.trim());
 });

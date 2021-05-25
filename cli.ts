@@ -1,4 +1,6 @@
 import { parse } from "https://deno.land/std@0.97.0/flags/mod.ts";
+import { readConfig } from "./read_config.ts";
+import { AppError } from "./models.ts";
 
 const NAME = "bmp";
 const VERSION = "0.0.1";
@@ -37,7 +39,7 @@ type CliArgs = {
 export async function main(args: string[]) {
   const {
     init,
-    info,
+    info: isInfo,
     commit,
     patch,
     minor,
@@ -80,6 +82,40 @@ export async function main(args: string[]) {
     usage();
     return 0;
   }
+
+  let versionInfo
+  try {
+    versionInfo = await readConfig();
+  } catch (e) {
+    if (e instanceof AppError) {
+      console.log(red(e.message));
+      return 1;
+    }
+    throw e;
+  }
+
+  if (major) {
+    versionInfo.major();
+  } else if (minor) {
+    versionInfo.minor();
+  } else if (patch) {
+    versionInfo.patch();
+  } else if (preid) {
+    versionInfo.preid(preid);
+  } else if (release) {
+    versionInfo.release();
+  }
+
+  if (versionInfo.isUpdated()) {
+    await versionInfo.performUpdate();
+  }
+
+  if (commit) {
+    await performCommit(versionInfo);
+  } else if (!versionInfo.isUpdated()) {
+    console.log(versionInfo.toString());
+  }
+  return 0;
 }
 
 Deno.exit(await main(Deno.args));

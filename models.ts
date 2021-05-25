@@ -2,6 +2,7 @@ import {
   parse,
   stringify,
 } from "https://deno.land/std@0.97.0/encoding/yaml.ts";
+import { green } from "https://deno.land/std@0.97.0/fmt/colors.ts";
 
 export class AppError extends Error {}
 
@@ -213,6 +214,26 @@ export class VersionInfo {
     }
     data.files = files;
     return data;
+  }
+
+  toString() {
+    const buf: string[] = [];
+    buf.push(`Current version: ${green(this.currentVersion.toString())}`);
+    if (this.commit) {
+      buf.push(`Commit message: ${green(this.commit)}`);
+    }
+    buf.push(`Version patterns:`);
+    console.log(this.filePatterns);
+    for (const { path, patterns } of this.filePatterns) {
+      for (const pattern of patterns) {
+	buf.push(`  ${path}: ${green(pattern)}`);
+      }
+    }
+    return buf.join("\n");
+  }
+
+  isUpdated() {
+    return this.currentVersion.toString() !== this.updateVersion.toString();
   }
 
   async replaceVersionsInFiles() {
