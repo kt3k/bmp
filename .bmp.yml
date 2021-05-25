@@ -3,5 +3,5 @@ commit: 'chore: bump to %.%.%'
 files:
   README.md:
     - bmp v%.%.%
-    - 'https://deno.land/x/bmp@%.%.%/cli.ts'
+    - 'https://deno.land/x/bmp@v%.%.%/cli.ts'
   cli.ts: const VERSION = "%.%.%";
