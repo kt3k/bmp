@@ -18,7 +18,7 @@ Options:
   -p, --patch        Bumps patch (0.0.1) level
   -m, --minor        Bumps minor (0.1.0) level
   -j, --major        Bumps major (1.0.0) level
-  --preid            Sets the pre-release version id (e.g. alpha, beta.1)
+  --preid <label>    Sets the pre-release version id (e.g. alpha, beta.1)
   -r, --release      Removes the pre-release version id
   -h, --help         Shows this help and exit
   -v, --version      Shows the version of this command and exit
@@ -58,7 +58,6 @@ export async function main(args: string[]) {
       "major",
       "minor",
       "patch",
-      "preid",
       "release",
       "info",
       "init",
