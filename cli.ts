@@ -5,7 +5,7 @@ import { performCommit } from "./perform_commit.ts";
 import { AppError, VersionInfo } from "./models.ts";
 
 const NAME = "bmp";
-const VERSION = "0.0.6";
+const VERSION = "0.0.7";
 
 function usage() {
   console.log(`
