@@ -1,9 +1,9 @@
 import {
   assert,
   assertEquals,
-  assertThrowsAsync,
-} from "https://deno.land/std@0.97.0/testing/asserts.ts";
-import { green } from "https://deno.land/std@0.97.0/fmt/colors.ts";
+  assertRejects,
+} from "https://deno.land/std@0.161.0/testing/asserts.ts";
+import { green } from "https://deno.land/std@0.161.0/fmt/colors.ts";
 
 import { AppError, Version, VersionInfo } from "./models.ts";
 
@@ -51,7 +51,7 @@ Deno.test("Version - updates version number", () => {
 });
 
 Deno.test("VersionInfo.create", async () => {
-  await assertThrowsAsync(
+  await assertRejects(
     async () => {
       VersionInfo.create({});
     },

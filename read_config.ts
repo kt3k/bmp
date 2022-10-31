@@ -1,7 +1,7 @@
 import {
   parse,
   stringify,
-} from "https://deno.land/std@0.97.0/encoding/yaml.ts";
+} from "https://deno.land/std@0.161.0/encoding/yaml.ts";
 
 import { AppError, VersionInfo, VersionInfoInput } from "./models.ts";
 
