@@ -1,12 +1,12 @@
 import {
   assertEquals,
-  assertThrowsAsync,
-} from "https://deno.land/std@0.97.0/testing/asserts.ts";
+  assertRejects,
+} from "https://deno.land/std@0.161.0/testing/asserts.ts";
 import { readConfig } from "./read_config.ts";
 import { AppError } from "./models.ts";
 
 Deno.test("readConfig - throws when the config file is not found", async () => {
-  await assertThrowsAsync(
+  await assertRejects(
     async () => {
       await readConfig({ file: "somedir/.bmp.yml" });
     },
@@ -16,7 +16,7 @@ Deno.test("readConfig - throws when the config file is not found", async () => {
 });
 
 Deno.test("readConfig - throws when the config file has syntax error", async () => {
-  await assertThrowsAsync(
+  await assertRejects(
     async () => {
       await readConfig({
         file: "testdata/.bmp.yml.broken",

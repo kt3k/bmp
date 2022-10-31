@@ -1,5 +1,5 @@
-import { parse } from "https://deno.land/std@0.97.0/flags/mod.ts";
-import { red } from "https://deno.land/std@0.97.0/fmt/colors.ts";
+import { parse } from "https://deno.land/std@0.161.0/flags/mod.ts";
+import { red } from "https://deno.land/std@0.161.0/fmt/colors.ts";
 import { readConfig } from "./read_config.ts";
 import { performCommit } from "./perform_commit.ts";
 import { AppError, VersionInfo } from "./models.ts";
