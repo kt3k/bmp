@@ -1,7 +1,7 @@
 import {
   assert,
   assertEquals,
-  assertRejects,
+  assertThrows,
 } from "https://deno.land/std@0.161.0/testing/asserts.ts";
 import { green } from "https://deno.land/std@0.161.0/fmt/colors.ts";
 
@@ -50,9 +50,9 @@ Deno.test("Version - updates version number", () => {
   assertEquals(v.preid, undefined);
 });
 
-Deno.test("VersionInfo.create", async () => {
-  await assertRejects(
-    async () => {
+Deno.test("VersionInfo.create", () => {
+  assertThrows(
+    () => {
       VersionInfo.create({});
     },
     AppError,
@@ -60,7 +60,7 @@ Deno.test("VersionInfo.create", async () => {
   );
 });
 
-Deno.test("VersionInfo - toObject", async () => {
+Deno.test("VersionInfo - toObject", () => {
   const info = VersionInfo.create({
     version: "1.2.3",
     commit: "chore: bump to %.%.%",
@@ -79,7 +79,7 @@ Deno.test("VersionInfo - toObject", async () => {
   });
 });
 
-Deno.test("VersionInfo.isUpdated()", async () => {
+Deno.test("VersionInfo.isUpdated()", () => {
   const info = VersionInfo.create({
     version: "1.2.3",
     commit: "chore: bump to %.%.%",
@@ -93,7 +93,7 @@ Deno.test("VersionInfo.isUpdated()", async () => {
   assert(info.isUpdated());
 });
 
-Deno.test("VersionInfo.toString()", async () => {
+Deno.test("VersionInfo.toString()", () => {
   const info = VersionInfo.create({
     version: "1.2.3",
     commit: "chore: bump to %.%.%",
@@ -115,7 +115,7 @@ Version patterns:
   );
 });
 
-Deno.test("VersionInfo.getTag()", async () => {
+Deno.test("VersionInfo.getTag()", () => {
   const info = VersionInfo.create({
     version: "1.2.3",
     commit: "chore: bump to %.%.%",
@@ -128,7 +128,7 @@ Deno.test("VersionInfo.getTag()", async () => {
   assertEquals(info.getTag(), "v1.2.3");
 });
 
-Deno.test("VersionInfo.getCommitMessage()", async () => {
+Deno.test("VersionInfo.getCommitMessage()", () => {
   const info = VersionInfo.create({
     version: "1.2.3",
     commit: "chore: hey %.%.%",
@@ -141,7 +141,7 @@ Deno.test("VersionInfo.getCommitMessage()", async () => {
   assertEquals(info.getCommitMessage(), "chore: hey 1.2.3");
 });
 
-Deno.test("VersionInfo.bumpSummary()", async () => {
+Deno.test("VersionInfo.bumpSummary()", () => {
   const info = VersionInfo.create({
     version: "1.2.3",
     commit: "chore: hey %.%.%",

@@ -41,7 +41,7 @@ type CliArgs = {
 export async function main(args: string[]) {
   const {
     init,
-    info: isInfo,
+    info: _isInfo,
     commit,
     patch,
     minor,

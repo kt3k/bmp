@@ -1,7 +1,4 @@
-import {
-  assertEquals,
-  assertRejects,
-} from "https://deno.land/std@0.161.0/testing/asserts.ts";
+import { assertRejects } from "https://deno.land/std@0.161.0/testing/asserts.ts";
 import { readConfig } from "./read_config.ts";
 import { AppError } from "./models.ts";
 

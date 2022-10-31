@@ -140,7 +140,7 @@ export class VersionInfo {
   }
   static create(
     { version, commit, files }: VersionInfoInput,
-    path: string = ".bmp.yml",
+    path = ".bmp.yml",
   ) {
     if (!version) {
       throw new AppError(
@@ -218,6 +218,7 @@ export class VersionInfo {
   toObject() {
     const data = {
       version: this.updateVersion.toString(),
+      // deno-lint-ignore no-explicit-any
     } as any;
     if (this.commit) {
       data.commit = this.commit;
