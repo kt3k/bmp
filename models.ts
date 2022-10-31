@@ -1,6 +1,4 @@
-import {
-  stringify,
-} from "https://deno.land/std@0.161.0/encoding/yaml.ts";
+import { stringify } from "https://deno.land/std@0.161.0/encoding/yaml.ts";
 import { green } from "https://deno.land/std@0.161.0/fmt/colors.ts";
 
 export class AppError extends Error {}
@@ -12,7 +10,7 @@ class FilePattern {
   ) {}
 
   async validate(v: string) {
-    let text: string
+    let text: string;
     try {
       text = await Deno.readTextFile(this.path);
     } catch (e) {
@@ -29,9 +27,9 @@ class FilePattern {
       }
       const findPattern = pattern.replaceAll("%.%.%", v);
       if (!text.includes(findPattern)) {
-	throw new AppError(
+        throw new AppError(
           `Error: The file '${this.path}' doesn't include the pattern '${findPattern}'`,
-	)
+        );
       }
     }
   }
@@ -136,11 +134,14 @@ export class VersionInfo {
       version: "0.0.0",
       commit: "chore: bump to v%.%.%",
       files: {
-	"README.md": "v%.%.%",
-      }
+        "README.md": "v%.%.%",
+      },
     });
   }
-  static create({ version, commit, files }: VersionInfoInput, path: string = ".bmp.yml") {
+  static create(
+    { version, commit, files }: VersionInfoInput,
+    path: string = ".bmp.yml",
+  ) {
     if (!version) {
       throw new AppError(
         "Error: version property is not given in the config file",
@@ -242,7 +243,11 @@ export class VersionInfo {
     buf.push(`Version patterns:`);
     for (const { path, patterns } of this.filePatterns) {
       for (const pattern of patterns) {
-	buf.push(`  ${path}: ${green(pattern.replaceAll("%.%.%", this.updateVersion.toString()))}`);
+        buf.push(
+          `  ${path}: ${
+            green(pattern.replaceAll("%.%.%", this.updateVersion.toString()))
+          }`,
+        );
       }
     }
     return buf.join("\n");
@@ -257,7 +262,15 @@ export class VersionInfo {
     buf.push("Version patterns:");
     for (const { path, patterns } of this.filePatterns) {
       for (const pattern of patterns) {
-	buf.push(`  ${path}: ${green(`${pattern.replaceAll("%.%.%", v0)} => ${pattern.replaceAll("%.%.%", v1)}`)}`);
+        buf.push(
+          `  ${path}: ${
+            green(
+              `${pattern.replaceAll("%.%.%", v0)} => ${
+                pattern.replaceAll("%.%.%", v1)
+              }`,
+            )
+          }`,
+        );
       }
     }
     return buf.join("\n");

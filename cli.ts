@@ -87,16 +87,16 @@ export async function main(args: string[]) {
   let versionInfo: VersionInfo;
   if (init) {
     try {
-      const f = await Deno.open('.bmp.yml');
+      const f = await Deno.open(".bmp.yml");
       console.log(red("Error: .bmp.yml file already exists"));
       f.close();
       return 1;
     } catch (e) {
       if (e.name === "NotFound") {
-	console.log("Creating .bmp.yml file");
-	await VersionInfo.createDefault().save();
-	console.log("Done");
-	return 0;
+        console.log("Creating .bmp.yml file");
+        await VersionInfo.createDefault().save();
+        console.log("Done");
+        return 0;
       }
       throw e;
     }
