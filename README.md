@@ -7,13 +7,12 @@
 # Motivation
 
 It's common to have the version number of the library written in multiple places
-in a repository, e.g. meta files, documetation, source code, etc.
+in a repository, e.g. metadata files, documetation, source code, etc.
 
 If the version number of the library written more than 1 place, updating these
-numbers in every release is very boring, very much error prone chore. `bmp`
-helps that situation with simple config file `.bmp.yml` which can track every
-occurence of the version number in a repository and updates every occurence
-consistently when you want to update it.
+numbers in every release is boring, error prone chore. `bmp` helps that
+situation with simple config file `.bmp.yml` which can track every occurence of
+the version number in a repository and updates every occurence consistently.
 
 # Install
 
@@ -25,7 +24,7 @@ This installs `bmp` command.
 
 # Usage
 
-Hit the command in a repository you want to mangae version numbers with `bmp`.
+Hit the below command to initialize the config file:
 
 ```sh
 bmp -i # or bump --init
@@ -42,20 +41,19 @@ files:
   README.md: v%.%.%
 ```
 
-- `version` is the current version of your repository. You need to update this
-  to the actuall current version number.
+- `version` is the current version of your repository. You need to set this to
+  the actuall current version number.
 - `commit` is the commit message which is used when you perform the command
-  `bmp -c`, which commits with appropriate commit message, and cut the tag. This
-  field is optional, and you can delete this if you don't want to use committing
-  feature.
+  `bmp -c`, which commits the change, and cut the tag. This field is optional,
+  and you can delete this if you don't want to use committing feature.
 - `files` contains the version number patterns in files. For example, if your
   README.md file contains `my-library v1.2.3`, then you need to set this
   property to `README.md: my-library v%.%.%`. (As you can see `%.%.%` part
   represents the version number) `bmp` doesn't parse your files. So you can list
   any files with any syntax.
 
-Then you need to modify this file to fit the reality of your repository. It
-might be something like the below, for example:
+Then you need to modify this file to fit the existing state of your repository.
+It might look something like the below, for example:
 
 ```yaml
 version: 0.4.3
@@ -68,7 +66,7 @@ files:
 ```
 
 Then hit the command `bmp` (no options). This validates the occurencies of the
-patterns in each file. If the config has any error, you'll see the error. If the
+patterns in each file. If the config has any error, the command shows it. If the
 config finds every pattern in every file, you'll see the output like the below:
 
 ```
