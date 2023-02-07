@@ -1,0 +1,5 @@
+{
+  "imports": {
+    "two": "https://deno.land/x/two@v1.2.3"
+  }
+}
