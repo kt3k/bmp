@@ -147,6 +147,7 @@ Deno.test("VersionInfo.bumpSummary()", () => {
     commit: "chore: hey %.%.%",
     files: {
       "README.md": ["v%.%.%", "@%.%.%"],
+      "testdata/*/importMap.json": ["v%.%.%"],
       "main.ts": [`"%.%.%"`],
     },
   });
@@ -161,6 +162,8 @@ Updating version:
 Version patterns:
   README.md: ${green("v1.2.3 => v1.3.0")}
   README.md: ${green("@1.2.3 => @1.3.0")}
+  testdata/one/importMap.json: ${green("v1.2.3 => v1.3.0")}
+  testdata/two/importMap.json: ${green("v1.2.3 => v1.3.0")}
   main.ts: ${green('"1.2.3" => "1.3.0"')}
   `.trim(),
   );

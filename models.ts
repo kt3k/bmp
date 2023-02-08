@@ -1,5 +1,8 @@
 import { stringify } from "https://deno.land/std@0.161.0/encoding/yaml.ts";
 import { green } from "https://deno.land/std@0.161.0/fmt/colors.ts";
+import { isGlob } from "https://deno.land/std@0.161.0/path/glob.ts";
+import { expandGlobSync } from "https://deno.land/std@0.161.0/fs/expand_glob.ts";
+import { relative } from "https://deno.land/std@0.161.0/path/mod.ts";
 
 export class AppError extends Error {}
 
@@ -11,6 +14,7 @@ class FilePattern {
 
   async validate(v: string) {
     let text: string;
+
     try {
       text = await Deno.readTextFile(this.path);
     } catch (e) {
@@ -19,6 +23,7 @@ class FilePattern {
       }
       throw e;
     }
+
     for (const pattern of this.patterns) {
       if (!pattern.includes("%.%.%")) {
         throw new AppError(
@@ -155,7 +160,13 @@ export class VersionInfo {
     const v = Version.parse(version);
     const filePatterns: FilePattern[] = [];
     for (const [path, value] of Object.entries(files)) {
+      const paths = isGlob(path)
+        ? expandGlobSync(path, {
+          includeDirs: false,
+        })
+        : [path];
       const patterns: string[] = [];
+
       if (typeof value === "string") {
         patterns.push(value);
       } else if (Array.isArray(value)) {
@@ -173,7 +184,14 @@ export class VersionInfo {
           `Error: Wrong type for file pattern: ${typeof value} (${value}) is given`,
         );
       }
-      filePatterns.push(new FilePattern(path, patterns));
+
+      for (const entry of paths) {
+        const path = typeof entry === "string"
+          ? entry
+          : relative(Deno.cwd(), entry.path);
+
+        filePatterns.push(new FilePattern(path, patterns));
+      }
     }
     return new VersionInfo(path, v, commit, filePatterns);
   }
