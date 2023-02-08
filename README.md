@@ -116,4 +116,5 @@ MIT
 
 # History
 
-- 2023-02-08 v0.2.0 Allow glob as files key [#2](https://github.com/kt3k/bmp/pull/2)
+- 2023-02-08 v0.2.0 Allow glob as files key
+  [#2](https://github.com/kt3k/bmp/pull/2)
