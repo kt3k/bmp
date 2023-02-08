@@ -1,4 +1,4 @@
-# bmp v0.1.0
+# bmp v0.2.0
 
 > Version up. No hassles.
 
@@ -17,7 +17,7 @@ the version number in a repository and updates every occurence consistently.
 # Install
 
 ```sh
-deno install --allow-read=. --allow-write=. --allow-run=git -qf https://deno.land/x/bmp@v0.1.0/cli.ts
+deno install --allow-read=. --allow-write=. --allow-run=git -qf https://deno.land/x/bmp@v0.2.0/cli.ts
 ```
 
 This installs `bmp` command.
@@ -113,3 +113,7 @@ Also `bmp -mc` for minor, `bmp -jc` for major.
 # LICENSE
 
 MIT
+
+# History
+
+- 2023-02-08 v0.2.0 Allow glob as files key [#2](https://github.com/kt3k/bmp/pull/2)
