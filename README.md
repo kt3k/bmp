@@ -118,3 +118,5 @@ MIT
 
 - 2023-02-08 v0.2.0 Allow glob as files key
   [#2](https://github.com/kt3k/bmp/pull/2)
+
+This tool was ported from the ruby version: https://github.com/kt3k/ruby-bmp
