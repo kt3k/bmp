@@ -1,4 +1,4 @@
-import { parse } from "https://deno.land/std@0.161.0/encoding/yaml.ts";
+import { parse } from "@std/yaml/parse";
 
 import { AppError, VersionInfo, VersionInfoInput } from "./models.ts";
 

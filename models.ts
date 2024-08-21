@@ -1,8 +1,8 @@
-import { stringify } from "https://deno.land/std@0.161.0/encoding/yaml.ts";
-import { green } from "https://deno.land/std@0.161.0/fmt/colors.ts";
-import { isGlob } from "https://deno.land/std@0.161.0/path/glob.ts";
-import { expandGlobSync } from "https://deno.land/std@0.161.0/fs/expand_glob.ts";
-import { relative } from "https://deno.land/std@0.161.0/path/mod.ts";
+import { stringify } from "@std/yaml";
+import { green } from "@std/fmt/colors";
+import { isGlob } from "@std/path/is-glob";
+import { expandGlobSync } from "@std/fs/expand-glob";
+import { relative } from "@std/path/relative";
 
 export class AppError extends Error {}
 

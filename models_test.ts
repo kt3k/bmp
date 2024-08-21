@@ -2,8 +2,8 @@ import {
   assert,
   assertEquals,
   assertThrows,
-} from "https://deno.land/std@0.161.0/testing/asserts.ts";
-import { green } from "https://deno.land/std@0.161.0/fmt/colors.ts";
+} from "@std/assert";
+import { green } from "@std/fmt/colors";
 
 import { AppError, Version, VersionInfo } from "./models.ts";
 

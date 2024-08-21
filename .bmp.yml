@@ -5,3 +5,4 @@ files:
     - bmp v%.%.%
     - 'https://deno.land/x/bmp@v%.%.%/cli.ts'
   cli.ts: const VERSION = "%.%.%";
+  deno.json: '"version": "%.%.%"'
