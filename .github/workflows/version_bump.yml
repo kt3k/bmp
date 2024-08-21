@@ -15,7 +15,7 @@ on:
         - none
         required: true
       prereleaseId:
-        description: 'Prerelease id to append (ex. rc.1). If you don't need to append it, keep this blank.'
+        description: 'Prerelease id to append (ex. rc.1). If you don''t need to append it, keep this blank.'
         type: 'string'
 jobs:
   build:
