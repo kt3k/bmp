@@ -1,6 +1,9 @@
 {
   "name": "@kt3k/bmp",
   "version": "0.2.0",
+  "exports": {
+    ".": "./cli.ts"
+  },
   "imports": {
     "@std/assert": "jsr:@std/assert@^1.0.2",
     "@std/cli": "jsr:@std/cli@^1.0.3",

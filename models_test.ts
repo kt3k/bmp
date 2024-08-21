@@ -1,8 +1,4 @@
-import {
-  assert,
-  assertEquals,
-  assertThrows,
-} from "@std/assert";
+import { assert, assertEquals, assertThrows } from "@std/assert";
 import { green } from "@std/fmt/colors";
 
 import { AppError, Version, VersionInfo } from "./models.ts";

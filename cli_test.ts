@@ -1,7 +1,4 @@
-import {
-  assertEquals,
-  assertStringIncludes,
-} from "@std/assert";
+import { assertEquals, assertStringIncludes } from "@std/assert";
 
 const decoder = new TextDecoder();
 

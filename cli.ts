@@ -38,7 +38,7 @@ type CliArgs = {
   version: boolean;
 };
 
-export async function main(args: string[]) {
+export async function main(args: string[]): Promise<number> {
   const {
     init,
     info: _isInfo,
