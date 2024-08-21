@@ -1,6 +1,6 @@
 import { parse } from "@std/yaml/parse";
 
-import { AppError, VersionInfo, VersionInfoInput } from "./models.ts";
+import { AppError, VersionInfo, type VersionInfoInput } from "./models.ts";
 
 type ReadConfigOptions = {
   file?: string;
