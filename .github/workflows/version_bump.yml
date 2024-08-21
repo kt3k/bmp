@@ -1,0 +1,42 @@
+name: version_bump
+permissions:
+  contents: write
+on:
+  workflow_dispatch:
+    inputs:
+      releaseKind:
+        description: 'Kind of version bump'
+        default: 'patch'
+        type: choice
+        options:
+        - patch
+        - minor
+        - major
+        - none
+        required: true
+      prereleaseId:
+        description: 'Prerelease id to use (ex. rc.1)'
+        type: 'string'
+jobs:
+  build:
+    name: version bump
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v4
+
+      - name: Install deno
+        uses: denoland/setup-deno@v1
+
+      - name: Run version bump
+        run: |
+          deno run --allow-read=. --allow-write=. jsr:@kt3k/bmp@0.2.3 --${{github.event.inputs.releaseKind}}
+        if: github.event.inputs.releaseKind != 'none'
+
+      - name: Add prerelease id
+        run: |
+          deno run --allow-read=. --allow-write=. jsr:@kt3k/bmp@0.2.3 --preid ${{github.event.inputs.prereleaseId}}
+        if: github.event.inputs.prereleaseId
+
