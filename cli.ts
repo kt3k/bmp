@@ -1,5 +1,5 @@
-import { parse } from "https://deno.land/std@0.161.0/flags/mod.ts";
-import { red } from "https://deno.land/std@0.161.0/fmt/colors.ts";
+import { parseArgs } from "@std/cli/parse-args";
+import { red } from "@std/fmt/colors";
 import { readConfig } from "./read_config.ts";
 import { performCommit } from "./perform_commit.ts";
 import { AppError, VersionInfo } from "./models.ts";
@@ -38,7 +38,7 @@ type CliArgs = {
   version: boolean;
 };
 
-export async function main(args: string[]) {
+export async function main(args: string[]): Promise<number> {
   const {
     init,
     info: _isInfo,
@@ -50,7 +50,7 @@ export async function main(args: string[]) {
     release,
     help,
     version,
-  } = parse(args, {
+  } = parseArgs(args, {
     boolean: [
       "version",
       "help",

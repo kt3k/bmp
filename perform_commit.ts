@@ -1,4 +1,4 @@
-import { green } from "https://deno.land/std@0.161.0/fmt/colors.ts";
+import { green } from "@std/fmt/colors";
 import { VersionInfo } from "./models.ts";
 
 export async function performCommit(info: VersionInfo) {
