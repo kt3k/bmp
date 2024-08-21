@@ -3,6 +3,6 @@ commit: 'chore: bump to %.%.%'
 files:
   README.md:
     - bmp v%.%.%
-    - 'https://deno.land/x/bmp@v%.%.%/cli.ts'
+    - 'jsr:@kt3k/bmp@%.%.%'
   cli.ts: const VERSION = "%.%.%";
   deno.json: '"version": "%.%.%"'

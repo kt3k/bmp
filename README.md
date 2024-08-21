@@ -17,7 +17,7 @@ the version number in a repository and updates every occurence consistently.
 # Install
 
 ```sh
-deno install --allow-read=. --allow-write=. --allow-run=git -qf https://deno.land/x/bmp@v0.2.2/cli.ts
+deno install --allow-read=. --allow-write=. --allow-run=git -qf jsr:@kt3k/bmp@0.2.2
 ```
 
 This installs `bmp` command.
