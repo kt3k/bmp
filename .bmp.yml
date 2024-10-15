@@ -1,8 +1,8 @@
-version: 0.2.4
+version: 0.3.0
 commit: "chore: bump to %.%.%"
 files:
   README.md:
     - bmp v%.%.%
-    - "jsr:@kt3k/bmp@%.%.%"
+    - jsr:@kt3k/bmp@%.%.%
   cli.ts: const VERSION = "%.%.%";
   deno.json: '"version": "%.%.%"'
