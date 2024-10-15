@@ -121,7 +121,7 @@ Deno.test("VersionInfo.getTag()", () => {
     },
   });
 
-  assertEquals(info.getTag(), "v1.2.3");
+  assertEquals(info.getTag(), "1.2.3");
 });
 
 Deno.test("VersionInfo.getCommitMessage()", () => {

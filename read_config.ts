@@ -1,4 +1,4 @@
-import { parse } from "@std/yaml/parse";
+import { parse } from "npm:yaml";
 
 import { AppError, VersionInfo, type VersionInfoInput } from "./models.ts";
 
