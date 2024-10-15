@@ -1,4 +1,4 @@
-# bmp v0.3.1
+# bmp v0.3.2
 
 > Version up. No hassles.
 
@@ -17,7 +17,7 @@ the version number in a repository and updates every occurence consistently.
 # Install
 
 ```sh
-deno install --global --allow-env --allow-read=. --allow-write=. --allow-run=git -qf jsr:@kt3k/bmp@0.3.1
+deno install --global --allow-env --allow-read=. --allow-write=. --allow-run=git -qf jsr:@kt3k/bmp@0.3.2
 ```
 
 This installs `bmp` command.
