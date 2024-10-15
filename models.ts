@@ -1,4 +1,4 @@
-import { stringify } from "@std/yaml";
+import { stringify } from "npm:yaml";
 import { green } from "@std/fmt/colors";
 import { isGlob } from "@std/path/is-glob";
 import { expandGlobSync } from "@std/fs/expand-glob";
@@ -314,7 +314,7 @@ export class VersionInfo {
   }
 
   getTag() {
-    return `v${this.updateVersion.toString()}`;
+    return this.updateVersion.toString();
   }
 
   getCommitMessage() {
