@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: denoland/setup-deno@v1
+      - uses: denoland/setup-deno@v2
       - run: deno fmt --check
       - run: deno lint
       - run: deno test -A

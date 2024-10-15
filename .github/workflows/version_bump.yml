@@ -6,17 +6,17 @@ on:
     inputs:
       releaseKind:
         description: 'Kind of version bump. If you like to only change prerelease id, select "none"'
-        default: 'patch'
+        default: "patch"
         type: choice
         options:
-        - patch
-        - minor
-        - major
-        - none
+          - patch
+          - minor
+          - major
+          - none
         required: true
       prereleaseId:
         description: 'Prerelease id to append (ex. rc.1). If you don''t need to append it, keep this blank.'
-        type: 'string'
+        type: "string"
 jobs:
   build:
     name: version bump
@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install deno
-        uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@v2
 
       - name: Run version bump
         run: |
@@ -39,4 +39,3 @@ jobs:
         run: |
           deno run --allow-read=. --allow-write=. jsr:@kt3k/bmp@0.2.3 --preid ${{github.event.inputs.prereleaseId}}
         if: github.event.inputs.prereleaseId
-

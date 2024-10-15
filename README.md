@@ -36,7 +36,7 @@ This creates a config file like the below:
 
 ```yaml
 version: 0.0.0
-commit: 'chore: bump version to %.%.%'
+commit: "chore: bump version to %.%.%"
 files:
   README.md: v%.%.%
 ```
@@ -57,7 +57,7 @@ It might look something like the below, for example:
 
 ```yaml
 version: 0.4.3
-commit: 'chore: bump version to v%.%.%'
+commit: "chore: bump version to v%.%.%"
 files:
   README.md:
     - v%.%.%
