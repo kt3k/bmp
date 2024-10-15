@@ -1,4 +1,4 @@
-import { stringify } from "npm:yaml";
+import { stringify } from "yaml";
 import { green } from "@std/fmt/colors";
 import { isGlob } from "@std/path/is-glob";
 import { expandGlobSync } from "@std/fs/expand-glob";
