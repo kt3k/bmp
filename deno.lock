@@ -7,7 +7,8 @@
     "jsr:@std/fs@^1.0.1": "1.0.1",
     "jsr:@std/internal@^1.0.1": "1.0.1",
     "jsr:@std/path@^1.0.2": "1.0.2",
-    "npm:yaml@*": "2.5.1"
+    "npm:yaml@*": "2.5.1",
+    "npm:yaml@^2.6.0": "2.6.0"
   },
   "jsr": {
     "@std/assert@1.0.2": {
@@ -38,6 +39,9 @@
   "npm": {
     "yaml@2.5.1": {
       "integrity": "sha512-bLQOjaX/ADgQ20isPJRvF0iRUHIxVhYvr53Of7wGcWlO2jvtUlH5m87DsmulFVxRpNLOnI4tB6p/oh8D7kpn9Q=="
+    },
+    "yaml@2.6.0": {
+      "integrity": "sha512-a6ae//JvKDEra2kdi1qzCyrJW/WZCgFi8ydDV+eXExl95t+5R+ijnqHJbz9tmMh8FUjx3iv2fCQ4dclAQlO2UQ=="
     }
   },
   "remote": {
@@ -106,7 +110,8 @@
       "jsr:@std/cli@^1.0.3",
       "jsr:@std/fmt@1",
       "jsr:@std/fs@^1.0.1",
-      "jsr:@std/path@^1.0.2"
+      "jsr:@std/path@^1.0.2",
+      "npm:yaml@^2.6.0"
     ]
   }
 }

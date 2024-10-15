@@ -1,4 +1,4 @@
-import { parse } from "npm:yaml";
+import { parse } from "yaml";
 
 import { AppError, VersionInfo, type VersionInfoInput } from "./models.ts";
 
