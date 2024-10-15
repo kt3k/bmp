@@ -25,19 +25,6 @@ Options:
 `);
 }
 
-type CliArgs = {
-  info: boolean;
-  init: boolean;
-  commit: boolean;
-  patch: boolean;
-  minor: boolean;
-  major: boolean;
-  preid: string;
-  release: boolean;
-  help: boolean;
-  version: boolean;
-};
-
 export async function main(args: string[]): Promise<number> {
   const {
     init,
@@ -92,7 +79,7 @@ export async function main(args: string[]): Promise<number> {
       f.close();
       return 1;
     } catch (e) {
-      if (e.name === "NotFound") {
+      if (e instanceof Error && e.name === "NotFound") {
         console.log("Creating .bmp.yml file");
         await VersionInfo.createDefault().save();
         console.log("Done");

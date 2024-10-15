@@ -18,7 +18,7 @@ class FilePattern {
     try {
       text = await Deno.readTextFile(this.path);
     } catch (e) {
-      if (e.name === "NotFound") {
+      if (e instanceof Error && e.name === "NotFound") {
         throw new AppError(`Error: The file ${this.path} not found`);
       }
       throw e;

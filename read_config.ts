@@ -14,7 +14,7 @@ export async function readConfig(
   try {
     yaml = await Deno.readTextFile(filename);
   } catch (e) {
-    if (e.name === "NotFound") {
+    if (e instanceof Error && e.name === "NotFound") {
       throw new AppError(`Error: The config file '${filename}' not found`);
     }
     throw e;
@@ -24,7 +24,11 @@ export async function readConfig(
   try {
     data = parse(yaml) as VersionInfoInput;
   } catch (e) {
-    throw new AppError(e.message);
+    if (e instanceof Error) {
+      throw new AppError(e.message);
+    } else {
+      throw new AppError(String(e));
+    }
   }
 
   const info = VersionInfo.create(data, filename);
