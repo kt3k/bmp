@@ -20,6 +20,6 @@ Deno.test("readConfig - throws when the config file has syntax error", async () 
       });
     },
     AppError,
-    "end of the stream or a document separator is expected at line 2, column 6:",
+    "Implicit keys need to be on a single line at line 1, column 1:\n\nasdfa\n^\n",
   );
 });
