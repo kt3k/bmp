@@ -1,29 +1,36 @@
 import { green } from "@std/fmt/colors";
 import type { VersionInfo } from "./models.ts";
 
-export async function performCommit(info: VersionInfo) {
+type GitRunner = (args: string[]) => Promise<void>;
+
+export interface PerformCommitOptions {
+  tag?: boolean;
+  runGit?: GitRunner;
+}
+
+async function runGitCommand(args: string[]) {
+  const p = new Deno.Command("git", {
+    args,
+    stdout: "inherit",
+    stderr: "inherit",
+  });
+  await p.output();
+}
+
+export async function performCommit(
+  info: VersionInfo,
+  { tag = true, runGit = runGitCommand }: PerformCommitOptions = {},
+) {
   console.log("====> Executing git commands");
   console.log(green(`git add .`));
-  const p0 = new Deno.Command("git", {
-    args: ["add", "."],
-    stdout: "inherit",
-    stderr: "inherit",
-  });
-  await p0.output();
+  await runGit(["add", "."]);
   const m = info.getCommitMessage();
   console.log(green(`git commit -m "${m}"`));
-  const p1 = new Deno.Command("git", {
-    args: ["commit", "-m", m],
-    stdout: "inherit",
-    stderr: "inherit",
-  });
-  await p1.output();
+  await runGit(["commit", "-m", m]);
+  if (!tag) {
+    return;
+  }
   const t = info.getTag();
   console.log(green(`git tag ${t}`));
-  const p2 = new Deno.Command("git", {
-    args: ["tag", t],
-    stdout: "inherit",
-    stderr: "inherit",
-  });
-  await p2.output();
+  await runGit(["tag", t]);
 }

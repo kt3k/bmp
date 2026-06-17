@@ -11,6 +11,7 @@ Deno.test("cli --help", async () => {
 
   assertEquals(code, 0);
   assertStringIncludes(decoder.decode(stdout), "Usage:");
+  assertStringIncludes(decoder.decode(stdout), "--no-tag");
 });
 
 Deno.test("cli --version", async () => {
