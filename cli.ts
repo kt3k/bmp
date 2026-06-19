@@ -20,6 +20,7 @@ Options:
   -j, --major        Bumps major (1.0.0) level
   --preid <label>    Sets the pre-release version id (e.g. alpha, beta.1)
   -r, --release      Removes the pre-release version id
+  --no-tag           Skips creating a git tag when used with --commit
   -h, --help         Shows this help and exit
   -v, --version      Shows the version of this command and exit
 `);
@@ -35,6 +36,7 @@ export async function main(args: string[]): Promise<number> {
     major,
     preid,
     release,
+    "no-tag": noTag,
     help,
     version,
   } = parseArgs(args, {
@@ -48,6 +50,7 @@ export async function main(args: string[]): Promise<number> {
       "release",
       "info",
       "init",
+      "no-tag",
     ],
     string: ["preid"],
     alias: {
@@ -117,7 +120,7 @@ export async function main(args: string[]): Promise<number> {
   }
 
   if (commit) {
-    await performCommit(versionInfo);
+    await performCommit(versionInfo, { tag: !noTag });
   } else if (!versionInfo.isUpdated()) {
     console.log(versionInfo.toString());
   }

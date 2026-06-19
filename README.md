@@ -44,8 +44,8 @@ files:
 - `version` is the current version of your repository. You need to set this to
   the actuall current version number.
 - `commit` is the commit message which is used when you perform the command
-  `bmp -c`, which commits the change, and cut the tag. This field is optional,
-  and you can delete this if you don't want to use committing feature.
+  `bmp -c`, which commits the change, and cuts the tag by default. This field is
+  optional, and you can delete this if you don't want to use committing feature.
 - `files` contains the version number patterns in files. For example, if your
   README.md file contains `my-library v1.2.3`, then you need to set this
   property to `README.md: my-library v%.%.%`. (As you can see `%.%.%` part
@@ -102,13 +102,17 @@ config.
 ## `bmp -c`
 
 Commits the current change in the git repository with the commit message
-specified in .bmp.yml config and cut the tag.
+specified in .bmp.yml config and cuts the tag.
+
+Add `--no-tag` to commit without creating a tag.
 
 ## `bmp -pc`
 
 Patch version up, commits the change, and cut the tag.
 
 Also `bmp -mc` for minor, `bmp -jc` for major.
+
+Use `bmp -pc --no-tag` to skip creating the tag.
 
 # LICENSE
 
